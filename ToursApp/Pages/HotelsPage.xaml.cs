@@ -28,7 +28,7 @@ namespace ToursApp.Pages
         public HotelsPage()
         {
             InitializeComponent();
-            HotelGrid.ItemsSource = DbModel.init().Hotels.ToList();
+            UpdateData();
 
         }
         private async void UpdateData() {
@@ -42,33 +42,46 @@ namespace ToursApp.Pages
                 StackPages.Children.Add(btFirst);
                 StackPages.Children.Add(btBack);
             }
+            
+            for (int i = 0; i < pagecount + 1;i++) {
+                
+                Button button = new Button();
+                button.Content = (i+1).ToString();
+                if (i == curpage)
+                    button.IsEnabled = false;
+                button.Tag = i;
+                button.Click += PageClick;
+                StackPages.Children.Add(button);
+            }
             if (curpage < pagecount)
             {
                 Button btLast = new Button { Content = ">|" };
                 Button btNext = new Button { Content = ">" };
                 btLast.Click += BtLastClick;
                 btNext.Click += BtNextClick;
+                StackPages.Children.Add(btNext);
                 StackPages.Children.Add(btLast);
             }
-            for (int i = 0; i < pagecount + 1;i++) {
-                
-                Button button = new Button();
-                button.Content = i.ToString();
-                button.Tag = i;
-
-                StackPages.Children.Add(button);
-            }
+            HotelGrid.ItemsSource = hotels;
 
         }
+
+        private void PageClick(object sender, RoutedEventArgs e)
+        {
+            Button button = sender as Button;
+            curpage = Convert.ToInt32(button.Tag);
+            UpdateData();
+        }
+
         private void BtLastClick(object sender, RoutedEventArgs e)
         {
-            curpage = 0;
+            curpage = pagecount;
             UpdateData();
         }
 
         private void BtNextClick(object sender, RoutedEventArgs e)
         {
-            curpage = 0;
+            curpage ++;
             UpdateData();
         }
         private void BtFirstClick(object sender, RoutedEventArgs e)
@@ -79,7 +92,7 @@ namespace ToursApp.Pages
 
         private void BtBackClick(object sender, RoutedEventArgs e)
         {
-            curpage = 0;
+            curpage--;
             UpdateData();
         }
 
@@ -97,6 +110,30 @@ namespace ToursApp.Pages
         }
 
         private void Search(object sender, TextChangedEventArgs e)
+        {
+            UpdateData();
+        }
+
+        private void HotelDeleteClick(object sender, RoutedEventArgs e)
+        {
+
+            Button button = sender as Button;
+            Hotel hotel = button.DataContext as Hotel;
+            if (hotel.Tours.Count == 0)
+            {
+                if (MessageBox.Show("Вы хотите удалить отель?", "Удалить?", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                {
+                    DbModel.init().Hotels.Remove(hotel);
+                    DbModel.init().SaveChanges();
+                    UpdateData();
+                }
+            }
+            else {
+                MessageBox.Show("Отель используется в турах!");
+            }
+        }
+
+        private void BtAddHotel(object sender, RoutedEventArgs e)
         {
 
         }

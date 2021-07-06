@@ -24,7 +24,7 @@
                 <TextBox MinWidth="200" Grid.Row="0" Name="TbSearch" TextChanged="Search"/>
             </StackPanel>
             
-            <Button Grid.Column="1">Добавить</Button>
+            <Button Grid.Column="1" Click="BtAddHotel">Добавить</Button>
         </Grid>
         <DataGrid Grid.Row="1" Name="HotelGrid" IsReadOnly="True" AutoGenerateColumns="False" FontSize="18">
             <DataGrid.Columns>
@@ -42,7 +42,7 @@
                 <DataGridTemplateColumn Width="100">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Content="Удалить"/>
+                            <Button Click="HotelDeleteClick" Content="Удалить"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
