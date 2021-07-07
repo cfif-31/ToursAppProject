@@ -8,29 +8,31 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="HotelAddChangePage">
 
-    <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+    <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Name="EditedContext">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
         <Label Grid.Row="0" Grid.Column="0">Название:</Label>
-        <TextBox Grid.Row="0" Grid.Column="1" Width="150"></TextBox>
+        <TextBox Grid.Row="0" Grid.Column="1" Width="150" Text="{Binding Name}"></TextBox>
 
-        <Label Grid.Row="1" Grid.Column="0">Название:</Label>
-        <TextBox Grid.Row="1" Grid.Column="1" Width="150"></TextBox>
+        <Label Grid.Row="1" Grid.Column="0">Количество звезд:</Label>
+        <TextBox Grid.Row="1" Grid.Column="1" Width="150" Text="{Binding CountOfStars}"></TextBox>
 
-        <Label Grid.Row="2" Grid.Column="0">Название:</Label>
-        <TextBox Grid.Row="2" Grid.Column="1" Width="150"></TextBox>
+        <Label Grid.Row="2" Grid.Column="0">Описание:</Label>
+        <TextBox Grid.Row="2" Grid.Column="1" Width="150" Height="120" Text="{Binding Description}"></TextBox>
 
-        <Label Grid.Row="4" Grid.Column="0">Название:</Label>
-        <TextBox Grid.Row="4" Grid.Column="1" Width="150"></TextBox>
+        <Label Grid.Row="3" Grid.Column="0">Страна:</Label>
+        <ComboBox Name="CbCountry" DisplayMemberPath="Name" Grid.Row="3" Grid.Column="1" Width="150" Height="38" VerticalAlignment="Bottom" SelectedValue="{Binding Country}"></ComboBox>
 
+        <Button Click="BtSave" Grid.ColumnSpan="2" Grid.Row="4">Сохранить</Button>
     </Grid>
 </Page>

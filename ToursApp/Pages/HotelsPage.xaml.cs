@@ -135,7 +135,12 @@ namespace ToursApp.Pages
 
         private void BtAddHotel(object sender, RoutedEventArgs e)
         {
+            NavigationService.Navigate(new HotelAddChangePage());
+        }
 
+        private void BtChangeHotel(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new HotelAddChangePage((sender as Button).DataContext as Hotel));
         }
     }
 }
